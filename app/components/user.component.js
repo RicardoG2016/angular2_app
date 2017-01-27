@@ -12,6 +12,7 @@ var core_1 = require('@angular/core');
 var posts_service_1 = require('../services/posts.service');
 var UserComponent = (function () {
     function UserComponent(postsService) {
+        var _this = this;
         this.postsService = postsService;
         this.name = 'John Doe';
         this.email = 'john@gmail.com';
@@ -23,7 +24,7 @@ var UserComponent = (function () {
         this.hobbies = ['Music', 'Food', 'Movies'];
         this.showHobbies = false;
         this.postsService.getPosts().subscribe(function (posts) {
-            console.log(posts);
+            _this.posts = posts;
         });
     }
     UserComponent.prototype.toggleHobbies = function () {
@@ -42,8 +43,9 @@ var UserComponent = (function () {
     };
     UserComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'user',
-            template: "\n  <h1>Hello {{name}}</h1>\n  <p>Email: {{email}}</p>\n  <p>Street: {{address.street}}</p>\n  <p>City: {{address.city}}</p>\n  <p>State: {{address.state}}</p>\n  <button (click)=\"toggleHobbies()\">{{showHobbies ? \"Hide Hobbies\" : \"Show Hobbies\"}}</button>\n  <br />\n  <div *ngIf=\"showHobbies\">\n    <h3>Hobbies</h3>\n    <ul>\n      <li *ngFor=\"let hobby of hobbies; let i = index\">\n        {{hobby}} <button (click)=\"deleteHobby(i)\">X</button>\n      </li>\n    </ul>\n    \n    <form (submit)=\"addHobby(hobby.value)\">\n      <label>Add Hobby: </label><br />\n      <input type=\"text\" #hobby /><br />\n    </form>\n    \n\n\n  </div>\n<hr />\n<h3>Edit User Info</h3>\n  <form>\n    <label>Name: </label><br />\n    <input type=\"text\" name=\"name\" [(ngModel)]=\"name\" /><br />\n    <input type=\"text\" name=\"email\" [(ngModel)]=\"email\" /><br />\n    <input type=\"text\" name=\"address.street\" [(ngModel)]=\"address.street\" /><br />\n    <input type=\"text\" name=\"address.city\" [(ngModel)]=\"address.city\" /><br />\n    <input type=\"text\" name=\"address.state\" [(ngModel)]=\"address.state\" /><br />\n  </form>\n  ",
+            templateUrl: 'user.component.html',
             providers: [posts_service_1.PostsService]
         }), 
         __metadata('design:paramtypes', [posts_service_1.PostsService])
